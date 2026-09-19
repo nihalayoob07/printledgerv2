@@ -34,7 +34,7 @@ src/components/
   *Panel.tsx   the overlays (ledger, bills, settings)
 ```
 
-## Three CSS traps this codebase already hit
+## Four CSS traps this codebase already hit
 
 - **Put resets in `@layer base`.** Unlayered CSS outranks every Tailwind
   utility, so a bare `button { font: inherit; color: inherit }` silently beat
@@ -44,6 +44,11 @@ src/components/
 - The aurora sits at `z-index: -10`, so the base colour lives on `html`. A
   painted `body` background would cover it, because block backgrounds paint
   after negative-z descendants.
+- **Grid and flex children need `min-w-0`, and inputs need `size={1}`.** Both
+  refuse to shrink below their content otherwise: a bare `<input>` carries a
+  20-character intrinsic width that propped the whole quote column open at
+  320px, and the cards overflowed their column by 18px without ever showing a
+  scrollbar, because the page hides horizontal overflow.
 
 ## House rules the UI is held to
 
