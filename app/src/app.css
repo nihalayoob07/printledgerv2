@@ -1,0 +1,281 @@
+@import "tailwindcss";
+@import "./fonts.css";
+
+/* ═══════════════════════════════════════════════════════════════════
+   Aurora glass.
+
+   The page is a slow-drifting mesh of light. Everything you touch is a
+   frosted pane floating above it: white enough to read against, sheer
+   enough that the colour underneath still shows through. No hard edges,
+   no monospace, no chrome — just paper made of light.
+   ═══════════════════════════════════════════════════════════════════ */
+
+@theme {
+  --font-display: "Outfit", system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+}
+
+/* ── moods ─────────────────────────────────────────────────────────
+   Each mood is three light sources and one accent. `--ink*` always
+   reads against `--pane`, never against the raw mesh.                */
+
+:root,
+[data-theme="dawn"] {
+  color-scheme: light;
+  --aur-1: #ffbe9c;   /* peach   */
+  --aur-2: #cdb2ff;   /* lilac   */
+  --aur-3: #9ce9d3;   /* mint    */
+  --canvas: #fbf8f6;
+
+  --pane: rgb(255 255 255 / 0.66);
+  --pane-solid: #fffdfc;
+  --pane-hi: rgb(255 255 255 / 0.86);
+  --edge: rgb(255 255 255 / 0.75);
+  --edge-2: rgb(28 18 34 / 0.08);
+  --veil: rgb(28 18 34 / 0.045);
+
+  --ink: #241a2b;
+  --ink-2: #4a3f55;
+  --ink-3: #5c5167;
+  --ink-4: #8d8298;
+
+  --acc: #7c3aed;
+  --acc-2: #e06a4a;
+  --acc-ink: #ffffff;
+  --acc-soft: rgb(124 58 237 / 0.1);
+  --glow: rgb(124 58 237 / 0.3);
+
+  --good: #0b6349;
+  --good-soft: rgb(11 99 73 / 0.12);
+  --bad: #9e2a20;
+  --bad-soft: rgb(158 42 32 / 0.1);
+  --warn: #9a6400;
+
+  --cast: 0 1px 2px rgb(40 20 60 / 0.04), 0 12px 32px -12px rgb(40 20 60 / 0.16);
+  --cast-lift: 0 2px 6px rgb(40 20 60 / 0.06), 0 26px 50px -18px rgb(40 20 60 / 0.26);
+}
+
+[data-theme="lagoon"] {
+  color-scheme: light;
+  --aur-1: #93d8ff; --aur-2: #93eeda; --aur-3: #b9c9ff;
+  --canvas: #f5fafc;
+  --pane: rgb(255 255 255 / 0.68);
+  --pane-solid: #fbfeff;
+  --pane-hi: rgb(255 255 255 / 0.88);
+  --edge: rgb(255 255 255 / 0.78);
+  --edge-2: rgb(10 40 55 / 0.09);
+  --veil: rgb(10 40 55 / 0.05);
+  --ink: #0d2c3a; --ink-2: #2e4d5c; --ink-3: #3f5c6a; --ink-4: #728e9c;
+  --acc: #0b6ea8; --acc-2: #0e8f7d; --acc-ink: #ffffff;
+  --acc-soft: rgb(11 110 168 / 0.1); --glow: rgb(11 110 168 / 0.3);
+  --good: #096050; --good-soft: rgb(9 96 80 / 0.12);
+  --bad: #99281f; --bad-soft: rgb(153 40 31 / 0.1);
+  --warn: #8a6000;
+  --cast: 0 1px 2px rgb(10 40 60 / 0.04), 0 12px 32px -12px rgb(10 40 60 / 0.18);
+  --cast-lift: 0 2px 6px rgb(10 40 60 / 0.07), 0 26px 50px -18px rgb(10 40 60 / 0.28);
+}
+
+[data-theme="blossom"] {
+  color-scheme: light;
+  --aur-1: #ffb0c6; --aur-2: #ffcb9f; --aur-3: #e9bcff;
+  --canvas: #fdf7f8;
+  --pane: rgb(255 255 255 / 0.68);
+  --pane-solid: #fffcfd;
+  --pane-hi: rgb(255 255 255 / 0.88);
+  --edge: rgb(255 255 255 / 0.78);
+  --edge-2: rgb(60 16 34 / 0.08);
+  --veil: rgb(60 16 34 / 0.045);
+  --ink: #32131f; --ink-2: #57323f; --ink-3: #68454f; --ink-4: #977683;
+  --acc: #bd2b63; --acc-2: #d2622c; --acc-ink: #ffffff;
+  --acc-soft: rgb(189 43 99 / 0.1); --glow: rgb(189 43 99 / 0.28);
+  --good: #0e5d48; --good-soft: rgb(14 93 72 / 0.12);
+  --bad: #9e2a20; --bad-soft: rgb(158 42 32 / 0.1);
+  --warn: #92600a;
+  --cast: 0 1px 2px rgb(70 20 40 / 0.04), 0 12px 32px -12px rgb(70 20 40 / 0.17);
+  --cast-lift: 0 2px 6px rgb(70 20 40 / 0.07), 0 26px 50px -18px rgb(70 20 40 / 0.27);
+}
+
+[data-theme="iris"] {
+  color-scheme: light;
+  --aur-1: #bdb4ff; --aur-2: #9ecdff; --aur-3: #dfb5ff;
+  --canvas: #f7f6fd;
+  --pane: rgb(255 255 255 / 0.66);
+  --pane-solid: #fdfcff;
+  --pane-hi: rgb(255 255 255 / 0.87);
+  --edge: rgb(255 255 255 / 0.76);
+  --edge-2: rgb(24 20 60 / 0.09);
+  --veil: rgb(24 20 60 / 0.05);
+  --ink: #1b1840; --ink-2: #3b3765; --ink-3: #4e4a72; --ink-4: #7d789d;
+  --acc: #4f46e5; --acc-2: #0e7490; --acc-ink: #ffffff;
+  --acc-soft: rgb(79 70 229 / 0.1); --glow: rgb(79 70 229 / 0.3);
+  --good: #0d6d55; --good-soft: rgb(13 109 85 / 0.11);
+  --bad: #9c2a24; --bad-soft: rgb(156 42 36 / 0.1);
+  --warn: #8a6100;
+  --cast: 0 1px 2px rgb(24 20 60 / 0.05), 0 12px 32px -12px rgb(24 20 60 / 0.2);
+  --cast-lift: 0 2px 6px rgb(24 20 60 / 0.08), 0 26px 50px -18px rgb(24 20 60 / 0.3);
+}
+
+/* the one night mood — the glass goes smoky instead of white */
+[data-theme="eclipse"] {
+  color-scheme: dark;
+  --aur-1: #5a3f96; --aur-2: #16607d; --aur-3: #8a2f6a;
+  --canvas: #0c0a14;
+  --pane: rgb(255 255 255 / 0.06);
+  --pane-solid: #17141f;
+  --pane-hi: rgb(255 255 255 / 0.1);
+  --edge: rgb(255 255 255 / 0.13);
+  --edge-2: rgb(255 255 255 / 0.08);
+  --veil: rgb(255 255 255 / 0.05);
+  --ink: #f4f0fb; --ink-2: #cfc7dd; --ink-3: #a79ebb; --ink-4: #8c83a0;
+  --acc: #b48bff; --acc-2: #6fd8c4; --acc-ink: #17102b;
+  --acc-soft: rgb(180 139 255 / 0.16); --glow: rgb(180 139 255 / 0.34);
+  --good: #5fd6ab; --good-soft: rgb(95 214 171 / 0.14);
+  --bad: #ff8577; --bad-soft: rgb(255 133 119 / 0.14);
+  --warn: #f0c274;
+  --cast: 0 1px 2px rgb(0 0 0 / 0.4), 0 12px 32px -12px rgb(0 0 0 / 0.7);
+  --cast-lift: 0 2px 6px rgb(0 0 0 / 0.5), 0 26px 50px -18px rgb(0 0 0 / 0.8);
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-pane: var(--pane);
+  --color-pane-solid: var(--pane-solid);
+  --color-pane-hi: var(--pane-hi);
+  --color-edge: var(--edge);
+  --color-edge-2: var(--edge-2);
+  --color-veil: var(--veil);
+  --color-ink: var(--ink);
+  --color-ink2: var(--ink-2);
+  --color-ink3: var(--ink-3);
+  --color-ink4: var(--ink-4);
+  --color-acc: var(--acc);
+  --color-acc2: var(--acc-2);
+  --color-acc-ink: var(--acc-ink);
+  --color-acc-soft: var(--acc-soft);
+  --color-good: var(--good);
+  --color-good-soft: var(--good-soft);
+  --color-bad: var(--bad);
+  --color-bad-soft: var(--bad-soft);
+  --color-warn: var(--warn);
+}
+
+/* These are resets, so they belong in @layer base. Left unlayered they would
+   outrank every Tailwind utility — `button { font: inherit }` alone silently
+   beats text-[13px] and text-acc-ink on every button in the app. */
+@layer base {
+  * { box-sizing: border-box; }
+
+  html, body, #root { height: 100%; }
+
+  /* The mesh sits at z-index -10. A painted body background would cover it,
+     because block backgrounds paint after negative-z descendants — so the
+     base colour lives on <html> and the body stays clear. */
+  html { background: var(--canvas); }
+
+  body {
+    margin: 0;
+    background: transparent;
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.5;
+    letter-spacing: -0.006em;
+    -webkit-font-smoothing: antialiased;
+    overscroll-behavior: none;
+  }
+
+  h1, h2, h3 { text-wrap: balance; }
+
+  button {
+    -webkit-tap-highlight-color: transparent;
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  input, textarea { font: inherit; color: inherit; }
+
+  :focus-visible {
+    outline: 2px solid var(--acc);
+    outline-offset: 3px;
+    border-radius: 10px;
+  }
+  ::selection { background: var(--acc-soft); color: var(--ink); }
+}
+
+[hidden] { display: none !important; }
+
+/* Radius scale, applied everywhere without exception:
+   panes 26px, overlays 30px, rows and groups 20px, fields 16px,
+   and anything you press is a full pill. */
+.tnum { font-variant-numeric: tabular-nums; }
+
+/* ── the pane ──────────────────────────────────────────────────────
+   One rule does all the glass: a translucent fill, a bright top edge
+   that reads as a lit bevel, and a long soft cast.                    */
+.pane {
+  background: var(--pane);
+  border: 1px solid var(--edge);
+  box-shadow: var(--cast), inset 0 1px 0 var(--pane-hi);
+  backdrop-filter: blur(22px) saturate(1.5);
+  -webkit-backdrop-filter: blur(22px) saturate(1.5);
+}
+
+/* Safari and Firefox without backdrop-filter would show unreadable text
+   over the mesh, so those browsers get an opaque pane instead. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .pane { background: var(--pane-solid); }
+}
+
+/* Some people turn transparency off at the OS level. Honour it. */
+@media (prefers-reduced-transparency: reduce) {
+  .pane {
+    background: var(--pane-solid);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+.scroll-soft::-webkit-scrollbar { width: 10px; height: 10px; }
+.scroll-soft::-webkit-scrollbar-thumb {
+  background: var(--edge-2); border-radius: 99px;
+  border: 3px solid transparent; background-clip: content-box;
+}
+.scroll-soft::-webkit-scrollbar-track { background: transparent; }
+.no-bar { scrollbar-width: none; }
+.no-bar::-webkit-scrollbar { display: none; }
+
+/* ── the mesh ──────────────────────────────────────────────────────
+   Three blurred blobs on a very long drift. Transform only, so it
+   never costs a layout.                                               */
+@keyframes drift-a {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(6%, -4%, 0) scale(1.14); }
+}
+@keyframes drift-b {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.08); }
+  50%      { transform: translate3d(-7%, 5%, 0) scale(0.94); }
+}
+@keyframes drift-c {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(0.96); }
+  50%      { transform: translate3d(4%, 7%, 0) scale(1.12); }
+}
+.blob-a { animation: drift-a 26s ease-in-out infinite; animation-play-state: var(--mesh-play, running); }
+.blob-b { animation: drift-b 34s ease-in-out infinite; animation-play-state: var(--mesh-play, running); }
+.blob-c { animation: drift-c 30s ease-in-out infinite; animation-play-state: var(--mesh-play, running); }
+
+@keyframes sheen {
+  from { transform: translateX(-120%); }
+  to   { transform: translateX(220%); }
+}
+.sheen { animation: sheen 2.4s cubic-bezier(0.4, 0, 0.2, 1); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

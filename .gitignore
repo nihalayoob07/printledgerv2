@@ -1,0 +1,23 @@
+# installed libraries, restored with `npm install`
+node_modules/
+
+# build output; ../index.html is the shipped copy and IS tracked
+app/dist/
+
+# editor and OS noise
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.local
+
+# personal UPI QR: not used by the app, never publish it
+qr.jpeg
+
+# earlier single-file builds: these still embed the original Firebase project,
+# so they stay out of a public repo. They remain on disk.
+printledger.html
+index.backup-*.html
+
+# your own Firebase config, kept locally for pasting back into Settings
+MY-FIREBASE-CONFIG.txt
