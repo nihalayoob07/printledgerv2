@@ -163,7 +163,7 @@ export function SettingsPanel(props: {
           <Input id="brand-name" value={brand} onChange={setBrand}
                  placeholder="The Print Vault…" autoComplete="organization" />
         </Field>
-        <div className="grid grid-cols-[110px_minmax(0,1fr)] gap-3">
+        <div className="grid grid-cols-[minmax(0,90px)_minmax(0,1fr)] gap-3">
           <Field label="Currency" htmlFor="brand-currency">
             <Input id="brand-currency" value={cur} onChange={setCur}
                    placeholder="₹" autoComplete="off" spellCheck={false} maxLength={3} />
@@ -183,7 +183,7 @@ export function SettingsPanel(props: {
       </Section>
 
       <Section title="What it costs you" note="These feed every quote. Every figure is per your own machine and tariff, so set them before you price anything.">
-        <div className="grid sm:grid-cols-2 gap-x-4">
+        <div className="grid sm:grid-cols-2 gap-x-4 min-w-0">
           {RATES.map((r) => (
             <Field key={r.key} label={r.label} htmlFor={`rate-${r.key}`}>
               <Input id={`rate-${r.key}`} unit={r.unit} type="number" inputMode="decimal"
@@ -406,7 +406,7 @@ export function SettingsPanel(props: {
                   </div>
                 ))}
 
-              <div className="grid grid-cols-[minmax(0,1fr)_110px] gap-3 mt-3">
+              <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,90px)] gap-3 mt-3">
                 <Field label="Code" htmlFor="new-code">
                   <Input id="new-code" value={newCode} onChange={setNewCode}
                          placeholder="DIWALI…" autoComplete="off" spellCheck={false} autoCapitalize="characters" />

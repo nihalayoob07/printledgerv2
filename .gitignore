@@ -21,3 +21,7 @@ index.backup-*.html
 
 # your own Firebase config, kept locally for pasting back into Settings
 MY-FIREBASE-CONFIG.txt
+
+# a restore file holds real customer names and prices
+print-ledger-restore.json
+print-ledger-backup-*.json

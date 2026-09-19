@@ -74,8 +74,8 @@ export function LedgerPanel({ open, onClose, log, onPatch, onDelete, onReprice, 
         </button>
       }
     >
-      <div className="sticky top-0 z-10 -mx-6 px-6 pb-3 pt-1"
-           style={{ background: "linear-gradient(var(--pane-hi) 74%, transparent)" }}>
+      <div className="sticky top-0 z-10 -mx-6 px-6 pb-3 pt-1 backdrop-blur-xl"
+           style={{ background: "var(--pane)" }}>
         <div className="relative">
           <MagnifyingGlassIcon size={16} aria-hidden
             className="absolute left-4 top-1/2 -translate-y-1/2 text-ink3 pointer-events-none" />
@@ -94,9 +94,12 @@ export function LedgerPanel({ open, onClose, log, onPatch, onDelete, onReprice, 
           />
         </div>
 
-        <div className="flex gap-2 mt-3 overflow-x-auto no-bar">
+        {/* wraps rather than scrolls: a half-sliced pill reads as broken, and
+            there is no affordance telling you to swipe it */}
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 mt-3">
           <Segmented items={FILTERS} value={filter} onPick={(v) => { setFilter(v); setShown(PAGE); }} label="Filter" />
-          <span aria-hidden className="w-px shrink-0 my-1" style={{ background: "var(--edge-2)" }} />
+          <span aria-hidden className="hidden sm:block w-px shrink-0 self-stretch my-1"
+                style={{ background: "var(--edge-2)" }} />
           <Segmented items={SORTS} value={sort} onPick={setSort} label="Sort" />
         </div>
       </div>

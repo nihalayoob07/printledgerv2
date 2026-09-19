@@ -112,7 +112,7 @@ export function QuoteCard({ draft, setDraft, quote, packagingNote, canLog, onLog
 
       {/* ── the inputs ─────────────────────────────────────────── */}
       <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain scroll-soft px-6 py-5">
-        <div className="grid sm:grid-cols-2 gap-x-4">
+        <div className="grid sm:grid-cols-2 gap-x-4 min-w-0">
           <Field label="Material used" htmlFor="q-weight">
             <Input id="q-weight" big unit="g" value={draft.weight} onChange={(v) => setDraft({ weight: v })}
                    placeholder="0" type="number" inputMode="decimal" min={0} step={0.1} autoComplete="off" />
@@ -127,7 +127,7 @@ export function QuoteCard({ draft, setDraft, quote, packagingNote, canLog, onLog
           </Field>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-x-4 mt-1">
+        <div className="grid sm:grid-cols-2 gap-x-4 mt-1 min-w-0">
           <Field label="What is it?" htmlFor="q-product">
             <Input id="q-product" value={draft.product} onChange={(v) => setDraft({ product: v })}
                    placeholder="Articulated dragon…" autoComplete="off" />

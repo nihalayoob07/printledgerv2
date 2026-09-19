@@ -145,15 +145,33 @@ export default function App() {
     };
   }, []);
 
+  // Going back is only right when we are the ones who pushed the entry. Land
+  // straight on #ledger from a bookmark and a back would leave the app, so
+  // that case clears the hash instead.
+  const pushedByUs = useRef(false);
+
   const openPanel = useCallback((p: Exclude<PanelId, "">) => {
-    try { window.location.hash = p; } catch { setPanel(p); }
+    try {
+      window.location.hash = p;
+      pushedByUs.current = true;
+    } catch {
+      setPanel(p);
+    }
   }, []);
 
   const closePanel = useCallback(() => {
     try {
-      if (readPanel()) window.history.back();
-      else setPanel("");
-    } catch { setPanel(""); }
+      if (pushedByUs.current && readPanel()) {
+        pushedByUs.current = false;
+        window.history.back();
+      } else {
+        const { pathname, search } = window.location;
+        window.history.replaceState(null, "", pathname + search);
+        setPanel("");
+      }
+    } catch {
+      setPanel("");
+    }
   }, []);
 
   // the mesh is decorative, but it still shouldn't burn a phone battery in a
@@ -239,14 +257,14 @@ export default function App() {
           {/* items-start is load-bearing: without it the side cards stretch to
               the quote card's height and open up a void under each one. */}
           <main id="quote" className="grid gap-4 sm:gap-5 lg:grid-cols-3 items-start">
-            <div className="lg:col-span-2 flex">
+            <div className="lg:col-span-2 flex min-w-0">
               <QuoteCard
                 draft={draft} setDraft={setDraft} quote={q} packagingNote={packagingNote}
                 canLog={canLog} onLog={onLog} justLogged={justLogged}
               />
             </div>
 
-            <div className="flex flex-col gap-4 sm:gap-5">
+            <div className="flex flex-col gap-4 sm:gap-5 min-w-0">
               <RevenueCard log={log} revenue={stats.revenue} profit={stats.profit} delay={0.06} />
               <StatusCard
                 total={stats.count} unpaid={stats.unpaid} queued={stats.queued}
@@ -254,7 +272,7 @@ export default function App() {
               />
             </div>
 
-            <div className="lg:col-span-2 flex">
+            <div className="lg:col-span-2 flex min-w-0">
               <RecentCard
                 recent={recent} onPick={onReprice} onOpen={() => openPanel("ledger")} delay={0.18}
               />

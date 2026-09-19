@@ -141,7 +141,8 @@ export function BillsPanel({ open, onClose, log, bills, coupons, onIssue, onDele
             })}
           </div>
 
-          <aside className="lg:sticky lg:top-1 h-max rounded-3xl p-5" style={{ background: "var(--veil)" }}>
+          <aside className="order-first lg:order-none lg:sticky lg:top-1 h-max rounded-3xl p-4 lg:p-5"
+                 style={{ background: "var(--veil)" }}>
             <Field label="Bill to" htmlFor="bill-customer">
               <Input id="bill-customer" value={customer} onChange={setCustomer}
                      placeholder="Rakesh…" autoComplete="name" />
@@ -150,8 +151,8 @@ export function BillsPanel({ open, onClose, log, bills, coupons, onIssue, onDele
               label="Discount code"
               htmlFor="bill-coupon"
               hint={
-                <p aria-live="polite" className={`text-[12.5px] mt-1.5 min-h-[18px] ${
-                  !code.trim() ? "text-ink3" : totals.coupon ? "text-good" : "text-bad"}`}>
+                <p aria-live="polite" className={`text-[12.5px] mt-1.5 ${
+                  !code.trim() ? "hidden lg:block min-h-[18px] text-ink3" : totals.coupon ? "text-good" : "text-bad"}`}>
                   {!code.trim() ? "Optional"
                     : totals.coupon ? `${totals.coupon.percent}% off the whole bill`
                     : "No such code. Add it in Settings"}
@@ -162,21 +163,25 @@ export function BillsPanel({ open, onClose, log, bills, coupons, onIssue, onDele
                      placeholder="FAMILY…" autoComplete="off" spellCheck={false} autoCapitalize="characters" />
             </Field>
 
-            <div className="h-px my-4" style={{ background: "var(--edge-2)" }} />
+            <div className="hidden lg:block">
+              <div className="h-px my-4" style={{ background: "var(--edge-2)" }} />
 
-            <Line label={`${chosen.length} print${chosen.length === 1 ? "" : "s"}`} value={inr(totals.subtotal)} />
-            {totals.discount > 0 && (
-              <Line label={`${totals.coupon?.code.toUpperCase()} discount`}
-                    value={`−${inr(totals.discount)}`} tone="var(--good)" />
-            )}
-            <div className="flex items-baseline justify-between gap-3 mt-3">
-              <span className="text-[13px] text-ink2">Total</span>
-              <span className="font-display font-semibold text-[26px] tnum tracking-[-0.03em]">
-                {inr(totals.grandTotal)}
-              </span>
+              <Line label={`${chosen.length} print${chosen.length === 1 ? "" : "s"}`} value={inr(totals.subtotal)} />
+              {totals.discount > 0 && (
+                <Line label={`${totals.coupon?.code.toUpperCase()} discount`}
+                      value={`−${inr(totals.discount)}`} tone="var(--good)" />
+              )}
+              <div className="flex items-baseline justify-between gap-3 mt-3">
+                <span className="text-[13px] text-ink2">Total</span>
+                <span className="font-display font-semibold text-[26px] tnum tracking-[-0.03em]">
+                  {inr(totals.grandTotal)}
+                </span>
+              </div>
             </div>
 
-            <Primary onClick={issue} disabled={chosen.length === 0} className="w-full mt-4">
+            {/* on a phone this lives in the pinned bar instead, so it is not
+                stranded below seventy rows of prints */}
+            <Primary onClick={issue} disabled={chosen.length === 0} className="w-full mt-4 hidden lg:block">
               {editing ? "Save changes" : "Issue this bill"}
             </Primary>
             {editing && (
@@ -185,6 +190,24 @@ export function BillsPanel({ open, onClose, log, bills, coupons, onIssue, onDele
               </Quiet>
             )}
           </aside>
+
+          <div className="lg:hidden sticky bottom-0 -mx-6 px-6 pt-3
+                          pb-[calc(0.75rem+env(safe-area-inset-bottom))] backdrop-blur-xl"
+               style={{ background: "var(--pane-solid)", borderTop: "1px solid var(--edge-2)" }}>
+            <div className="flex items-center gap-3">
+              <span className="flex-1 min-w-0">
+                <span className="block text-[12px] text-ink3">
+                  {chosen.length} print{chosen.length === 1 ? "" : "s"} selected
+                </span>
+                <span className="block font-display font-semibold text-[19px] tnum tracking-[-0.02em]">
+                  {inr(totals.grandTotal)}
+                </span>
+              </span>
+              <Primary onClick={issue} disabled={chosen.length === 0} className="shrink-0">
+                {editing ? "Save" : "Issue bill"}
+              </Primary>
+            </div>
+          </div>
         </div>
       ) : bills.length === 0 ? (
         <p className="py-14 text-center text-[14px] text-ink3">No bills issued yet.</p>

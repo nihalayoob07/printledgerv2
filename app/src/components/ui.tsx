@@ -11,7 +11,7 @@ export function Card({ children, className = "", span = "", delay = 0, id }: {
   return (
     <motion.section
       id={id}
-      className={`pane rounded-[26px] ${span} ${className}`}
+      className={`pane rounded-[26px] min-w-0 ${span} ${className}`}
       initial={reduce ? false : { opacity: 0, y: 22, scale: 0.985 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ type: "spring", stiffness: 210, damping: 26, delay: reduce ? 0 : delay }}
@@ -41,7 +41,7 @@ export function Field({ label, htmlFor, children, hint }: {
   label: string; htmlFor: string; children: ReactNode; hint?: ReactNode;
 }) {
   return (
-    <div className="mb-3.5 last:mb-0">
+    <div className="mb-3.5 last:mb-0 min-w-0">
       <label htmlFor={htmlFor} className="block text-[12.5px] font-medium text-ink2 mb-1.5">
         {label}
       </label>
@@ -63,6 +63,7 @@ export function Input({ id, value, onChange, unit, big, ...rest }: {
       <input
         id={id}
         name={id}
+        size={1}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className={`flex-1 min-w-0 bg-transparent outline-none px-4 ${
@@ -87,7 +88,7 @@ export function Chips({ options, onPick }: {
           key={o.label}
           type="button"
           onClick={() => onPick(o.amount)}
-          className="flex-1 rounded-full py-2 text-[12.5px] font-medium text-ink2
+          className="flex-1 min-w-0 rounded-full py-2 text-[12.5px] font-medium text-ink2
                      transition-[background,color,transform] duration-200
                      hover:text-ink active:scale-[0.94]"
           style={{ background: "var(--veil)" }}
